@@ -1,6 +1,11 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-
+import { Toaster } from "@/components/ui/toaster";
+import { SessionProvider } from "next-auth/react";
+import SessionProviderWrapper from "./provider/Provider";
+import { SessionContextProvider } from "./provider/SessionContext";
+import Profile from "./component/profile";
+import "handsontable/dist/handsontable.full.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -10,8 +15,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} h-full`}>
+        <SessionProviderWrapper>
+          <SessionContextProvider>
+            <main className="h-full">{children}</main>
+          </SessionContextProvider>
+        </SessionProviderWrapper>
+        <Toaster />
+      </body>
     </html>
   );
 }
