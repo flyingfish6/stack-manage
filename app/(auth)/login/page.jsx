@@ -43,16 +43,16 @@ const Login = () => {
     }
   };
   return (
-    <div className="items-center  bg-primary justify-center flex h-full">
-      <div className=" bg-white rounded-xl py-20 flex items-center justify-center w-[50%]">
-        <div>
-          <div className="grid gap-2   mb-5 ">
+    <div className="items-center  bg-blue-2 justify-center flex h-full">
+      <div className=" bg-white rounded-xl py-20 flex items-center justify-center md:w-[30%] max-md:w-[30%]">
+        <div className="w-[80%]">
+          <div className="grid gap-4   mb-5 ">
             <Label htmlFor="phone">手机号码</Label>
             <Input
               placholder="手机号码"
               id="phone"
               focused="false"
-              className="focus:border-none"
+              className="focus:border-none w-full"
               onChange={(e) => {
                 setPhone(e.target.value);
               }}

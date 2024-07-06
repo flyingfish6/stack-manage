@@ -16,41 +16,34 @@ const Profile = () => {
   const { data: session, status } = useSession();
 
   const userData = useSessionContext();
+  const getSession = () => {};
   useEffect(() => {
     if (userData) {
-      console.log(userData);
     }
   }, [userData]);
   const handleSignOut = () => {
     signOut({ callbackUrl: "/login" });
   };
   return (
-    <div>
-      <Popover>
-        <PopoverTrigger
-          asChild
-          className="flex absolute sm:right-2 md:right-4 sm:mt-2 md:mt-4"
-        >
-          <div className="flex items-center justify-center gap-4  hover:bg-blue-1 hover:shadow-md  p-4">
+    <div className=" h-full">
+      <Popover className="h-full">
+        <PopoverTrigger asChild className="flex">
+          <div className="flex items-center justify-between gap-4 cursor-pointer h-full w-full">
             <Image
               src={image}
-              width={50}
-              height={50}
+              width={40}
+              height={40}
               alt="image"
               className="flex rounded-full "
             />
             <div className="text-white">
-              <div>{session.user.name}</div>
+              <div className="text-[15px]">{userData?.user?.name}</div>
               <div className="text-sm">管理员</div>
             </div>
           </div>
         </PopoverTrigger>
         <PopoverContent className="w-[100%]" asChild>
-          <Button
-            onClick={handleSignOut}
-            variant="outline"
-            className="hover:outline-none active:outline-none focus:outline-none"
-          >
+          <Button className="bg-white hover:bg-white" onClick={handleSignOut}>
             退出登录
           </Button>
         </PopoverContent>

@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Supplier {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+}
+
+model StockIn {
+  id         Int      @id @default(autoincrement())
+  itemName   String
+  unitPrice  Float
+  quantity   Float    // 改为 Float
+  remaining  Float    @default(0) // 剩余数量，改为 Float
+  wareHose   WareHouse @default(qianfang)
+  supplier   String    @default("供货商1")
+  createdAt  DateTime  @default(now())
+  stock      Stock     @relation(fields: [itemName], references: [itemName])
+  stockOuts  StockOut[] // 建立关系
+}
+
+model StockOut {
+  id          Int      @id @default(autoincrement())
+  itemName    String
+  quantity    Float    // 改为 Float
+  wareHouse   WareHouse @default(qianfang)
+  receiver    String
+  workshop    Workshop
+  createdAt   DateTime  @default(now())
+  stock       Stock     @relation(fields: [itemName], references: [itemName])
+  stockIn     StockIn   @relation(fields: [stockInId], references: [id])
+  stockInId   Int       // 关联入库记录的ID
+}
+
+model Receiver {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+}
+
+model Stock {
+  itemName       String   @id
+  unitPrice      Float
+  wareHouse      WareHouse @default(qianfang)
+  totalIn        Float    @default(0) // 改为 Float
+  totalOut       Float    @default(0) // 改为 Float
+  remaining      Float    @default(0) // 改为 Float
+  stockValue     Float    @default(0.0)
+  monthlyIn      Float    @default(0) // 改为 Float
+  monthlyOut     Float    @default(0) // 改为 Float
+  lastMonthCarry Float    @default(0) // 改为 Float
+  
+  stockIns       StockIn[]
+  stockOuts      StockOut[]
+}
+
+enum Workshop {
+  qianfang
+  si71
+  ziluotong
+  laduan
+  lamaohuanian
+  dianqi
+  wu83
+  zhoucheng
+  maoling
+  sanjiaodai
+  shumaoji
+  dache
+  gaobing
+  jiangxi
+  chuku
+}
+
+enum WareHouse {
+  qianfang
+  si71
+  ziluotong
+  laduan
+  lamaohuanian
+  dianqi
+  wu83
+  zhoucheng
+  maoling
+  sanjiaodai
+  shumaoji
+  dache
+  gaobing
+}

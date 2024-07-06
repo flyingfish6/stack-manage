@@ -3,8 +3,7 @@ import React, { useEffect } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useSessionContext } from "./provider/SessionContext";
-import Profile from "./component/profile";
-import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 const HomePage = () => {
   const userData = useSessionContext();
@@ -19,7 +18,7 @@ const HomePage = () => {
     // console.log(session);
   }, [session]);
 
-  if (status === "loading" || !session) {
+  if (status === "loading") {
     return <div>Loading...</div>;
   }
 
@@ -32,8 +31,8 @@ const HomePage = () => {
   }
 
   return (
-    <div className="bg-primary h-full">
-      <Profile />
+    <div className="bg-blue-2 h-full">
+      {/* <Profile /> */}
       <div className=" flex items-center justify-center h-full">
         {/* <Link
           href="/stock/stockout"
@@ -49,13 +48,13 @@ const HomePage = () => {
             出库
           </Button>
           <Button
-            onClick={() => router.push("/stock/stockout")}
+            onClick={() => router.push("/stock/stockin")}
             className="bg-white w-full tracking-[1rem] hover:bg-white hover:opacity-75  text-primary px-10 py-2 rounded-sm"
           >
             入库
           </Button>
           <Button
-            onClick={() => router.push("/stock/stockout")}
+            onClick={() => router.push("/stock/stockall")}
             className="bg-white w-full tracking-[1rem] hover:bg-white hover:opacity-75  text-primary px-10 py-2 rounded-sm"
           >
             库存

@@ -6,6 +6,9 @@ import SessionProviderWrapper from "./provider/Provider";
 import { SessionContextProvider } from "./provider/SessionContext";
 import Profile from "./component/profile";
 import "handsontable/dist/handsontable.full.css";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
+import SideBar from "./component/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -19,7 +22,13 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} h-full`}>
         <SessionProviderWrapper>
           <SessionContextProvider>
-            <main className="h-full">{children}</main>
+            <Theme className="h-full">
+              <main className="h-full ">
+                <div className="flex h-full">
+                  <div className="w-full">{children}</div>
+                </div>
+              </main>
+            </Theme>
           </SessionContextProvider>
         </SessionProviderWrapper>
         <Toaster />
